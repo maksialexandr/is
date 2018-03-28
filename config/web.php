@@ -21,13 +21,13 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
+        /*'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
-        ],
-        'errorHandler' => [
+        ],*/
+        /*'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
+        ],*/
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
@@ -50,7 +50,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<module:admin>/<controller:news>/<action:create>' => '<module>/<controller>/<action>',
+                //'<module:admin>/<controller:news>/<action:create>' => '<module>/<controller>/<action>',
             ],
         ],
 
@@ -63,7 +63,7 @@ $config = [
         ],
     ],
 
-    //'defaultRoute' => '/',
+    'defaultRoute' => 'home', // rename base controller
 
     //'catchAll' => ['admin/'],  //stub
 ];

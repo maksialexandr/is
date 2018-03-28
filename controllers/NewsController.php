@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
  */
 class NewsController extends Controller
 {
+    
     /**
      * @inheritdoc
      */
@@ -63,7 +64,6 @@ class NewsController extends Controller
                 'model' => $this->findModel($id),
             ]);
     }
-
 
     /**
      * Finds the News model based on its primary key value.

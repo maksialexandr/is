@@ -23,7 +23,6 @@ class NewsController extends DefaultController
 {
 
     /**
-     * @param $searchModel
      * @return string
      */
     public function actionIndex()
@@ -119,9 +118,8 @@ class NewsController extends DefaultController
     }
 
     /**
-     * @param Model $model
      * @param $id
-     * @return mixed
+     * @return null|static
      * @throws NotFoundHttpException
      */
     protected function findModel($id)
