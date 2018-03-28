@@ -21,23 +21,20 @@ use yii\web\UploadedFile;
  */
 class NewsController extends DefaultController
 {
+
     /**
-     * @inheritdoc
+     * @param $searchModel
+     * @return string
      */
-    public function behaviors()
+    public function actionIndex()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'index'     => ['GET'],
-                    'create'    => ['GET', 'POST'],
-                    'update'    => ['GET', 'POST', 'PUT'],
-                    'delete'    => ['POST', 'DELETE'],
-                    'view'      => ['GET'],
-                ],
-            ],
-        ];
+        $searchModel = new NewsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -53,25 +50,10 @@ class NewsController extends DefaultController
             if($this->saveOrUpdate($model))
                 return $this->redirect(['view', 'id' => $model->id]);
 
-
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-    /**
-     * @return string
-     */
-    public function actionIndex()
-    {
-        $searchModel = new NewsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
 
     /**
      * Updates an existing News model.
@@ -97,7 +79,7 @@ class NewsController extends DefaultController
     }
 
     /**
-     * @param $model
+     * @param News $model
      * @return bool
      */
     protected function saveOrUpdate(News $model)
@@ -133,7 +115,6 @@ class NewsController extends DefaultController
 
         UploadImage::deleteOldImage($model->image);
 
-        //return $this->redirect(Yii::$app->request->referrer);
         return $this->redirect('index');
     }
 
@@ -145,9 +126,8 @@ class NewsController extends DefaultController
      */
     protected function findModel($id)
     {
-        if (($model = News::findOne($id)) !== null) {
+        if (($model = News::findOne($id)) !== null)
             return $model;
-        }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }

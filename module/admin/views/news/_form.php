@@ -11,7 +11,6 @@ use kartik\date\DatePicker;
 
 <div class="news-form">
 
-
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -22,10 +21,8 @@ use kartik\date\DatePicker;
         ['width' => '150']); ?>
 
     <?= $form->field($model, 'image')->fileInput() ?>
-    <?= Html::label($model->getAttributeLabel('date'), null, [
-        'class' => 'control-label'
-    ]) ?>
 
+    <?= Html::label($model->getAttributeLabel('date'), null, ['class' => 'control-label']) ?>
     <?= DatePicker::widget([
         'model' => $model,
         'attribute' => 'date',
@@ -37,10 +34,7 @@ use kartik\date\DatePicker;
         ]
     ]);?>
 
-
-    <?= $form->field($model, 'tags')->listBox($model->getDataItems(),[
-        'maxlength' => 255, 'multiple' => true]) ?>
-
+    <?= $form->field($model, 'tags')->listBox($model->getAllTags(),['multiple' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

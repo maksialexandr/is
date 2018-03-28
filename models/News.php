@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\Sort;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -30,7 +31,7 @@ class News extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'string', 'max' => 255,],
+            [['name'], 'string', 'max' => 255],
             [['content'], 'string'],
             [['date', 'content', 'name'], 'safe'],
             ['name', 'required', 'message' => 'Please choose a name.'],
@@ -50,37 +51,64 @@ class News extends \yii\db\ActiveRecord
             'date' => 'Date',
         ];
     }
-    
+
+    /**
+     * @return string
+     */
     public function getDate(){
 
         return Yii::$app->getFormatter()->format($this->date, 'date');
     }
-    
+
+    /**
+     * @return bool
+     */
     public function hasDate(){
 
         return !empty($this->date) ? true : false;
     }
 
+    /**
+     * @return $this
+     */
     public function getTags()
     {
         return $this->hasMany(Tag::class, ['id' => 'tag_id'])
             ->viaTable('news_tag', ['news_id' => 'id']);
     }
-    
 
-    public function getDataItems()
+    /**
+     * @return array
+     */
+    public function getAllTags()
     {
         return ArrayHelper::map(Tag::find()->all(), 'id', 'name');
     }
 
-    public function setTags($tags)
+    /**
+     * @param array $tags
+     */
+    public function setTags(array $tags)
     {
         $this->unlinkAll('tags');
-        
-        $tags = Tag::findAll($tags);
-        foreach ($tags as $tag)
+        foreach (Tag::findAll($tags) as $tag)
             $this->link('tags', $tag);
     }
 
+    /**
+     * @return Sort
+     */
+    public static function getSort()
+    {
+        return new Sort([
+            'attributes' => [
+                'date' => [
+                    'asc' => ['date' => SORT_ASC],
+                    'desc' => ['date' => SORT_DESC],
+                    'label' => 'Date',
+                ],
+            ],
+        ]);
+    }
 
 }

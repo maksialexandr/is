@@ -14,28 +14,10 @@ use yii\filters\VerbFilter;
  */
 class TagController extends DefaultController
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'index'     => ['GET'],
-                    'create'    => ['GET', 'POST'],
-                    'update'    => ['GET', 'POST', 'PUT'],
-                    'delete'    => ['POST', 'DELETE'],
-                    'view'      => ['GET'],
-                ],
-            ],
-        ];
-    }
 
     /**
-     * Lists all Tag models.
-     * @return mixed
+     * @param $searchModel
+     * @return string
      */
     public function actionIndex()
     {
@@ -115,4 +97,5 @@ class TagController extends DefaultController
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

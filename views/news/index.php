@@ -1,6 +1,7 @@
 <?php
 
 use branchonline\lightbox\Lightbox;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
