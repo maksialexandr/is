@@ -39,9 +39,8 @@ class TagController extends DefaultController
     {
         $model = new Tag();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save())
             return $this->redirect(['view', 'id' => $model->id]);
-        }
 
         return $this->render('create', [
             'model' => $model,
@@ -59,9 +58,8 @@ class TagController extends DefaultController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save())
             return $this->redirect(['view', 'id' => $model->id]);
-        }
 
         return $this->render('update', [
             'model' => $model,
@@ -91,9 +89,8 @@ class TagController extends DefaultController
      */
     protected function findModel($id)
     {
-        if (($model = Tag::findOne($id)) !== null) {
+        if (($model = Tag::findOne($id)) !== null)
             return $model;
-        }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }

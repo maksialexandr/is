@@ -88,9 +88,9 @@ class News extends \yii\db\ActiveRecord
     /**
      * @param array $tags
      */
-    public function setTags(array $tags)
+    public function setTags($tags)
     {
-        $this->unlinkAll('tags');
+        $this->unlinkAll('tags', true);
         foreach (Tag::findAll($tags) as $tag)
             $this->link('tags', $tag);
     }
