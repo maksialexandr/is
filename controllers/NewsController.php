@@ -2,12 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\NewsSearch;
 use Yii;
 use app\models\News;
 use yii\data\ActiveDataProvider;
 use yii\data\Sort;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

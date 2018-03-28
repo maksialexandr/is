@@ -23,7 +23,11 @@ class TagController extends DefaultController
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'delete' => ['POST'],
+                    'index'     => ['GET'],
+                    'create'    => ['GET', 'POST'],
+                    'update'    => ['GET', 'POST', 'PUT'],
+                    'delete'    => ['POST', 'DELETE'],
+                    'view'      => ['GET'],
                 ],
             ],
         ];

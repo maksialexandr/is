@@ -73,5 +73,14 @@ class News extends \yii\db\ActiveRecord
         return ArrayHelper::map(Tag::find()->all(), 'id', 'name');
     }
 
+    public function setTags($tags)
+    {
+        $this->unlinkAll('tags');
+        
+        $tags = Tag::findAll($tags);
+        foreach ($tags as $tag)
+            $this->link('tags', $tag);
+    }
+
 
 }

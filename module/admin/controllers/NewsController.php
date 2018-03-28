@@ -112,18 +112,13 @@ class NewsController extends DefaultController
             $model->date = new Expression('NOW()');
 
         if($model->validate() && $model->save()) {
-            if ($tags = ArrayHelper::getValue(Yii::$app->request->post(), 'News.tags')) {
-                $model->unlinkAll('tags');
-                $tags = Tag::findAll($tags);
-                foreach ($tags as $tag)
-                        $model->link('tags', $tag);
-            }
+            if ($tags = ArrayHelper::getValue(Yii::$app->request->post(), 'News.tags'))
+                $model->setTags($tags);
 
             return true;
         }
 
         return false;
-
     }
 
     /**
@@ -138,7 +133,8 @@ class NewsController extends DefaultController
 
         UploadImage::deleteOldImage($model->image);
 
-        return $this->redirect(Yii::$app->request->referrer);
+        //return $this->redirect(Yii::$app->request->referrer);
+        return $this->redirect('index');
     }
 
     /**
