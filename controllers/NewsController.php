@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\NewsSearch;
 use Yii;
 use app\models\News;
 use yii\data\ActiveDataProvider;
+use yii\data\Sort;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -39,18 +42,25 @@ class NewsController extends Controller
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => News::find()->with('tags'),
-                'sort'=>[
-                    'defaultOrder' => [
-                        'date' => SORT_DESC,
-                    ]
-                ],
                 'pagination' => [
-                    'pageSize' => 3],
+                    'pageSize' => 7],
             ]);
-        
+
+        $sort = new Sort([
+            'attributes' => [
+                'date' => [
+                    'asc' => ['date' => SORT_ASC],
+                    'desc' => ['date' => SORT_DESC],
+                    'default' => SORT_DESC,
+                    'label' => 'Date',
+                ],
+            ],
+        ]);
+
         return $this->render('index',
             [
                 'dataProvider' => $dataProvider,
+                'sort' => $sort,
             ]);
     }
 
@@ -83,4 +93,5 @@ class NewsController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    
 }

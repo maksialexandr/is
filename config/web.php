@@ -10,6 +10,8 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@admin' => '/admin',
+        '@home' => '/',
     ],
     'components' => [
         'request' => [
@@ -48,16 +50,22 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<module:admin>/<controller:news>/<action:create>' => '<module>/<controller>/<action>',
             ],
         ],
 
     ],
     'params' => $params,
+
     'modules' => [
         'admin' => [
             'class' => 'app\module\admin\Module',
         ],
     ],
+
+    //'defaultRoute' => '/',
+
+    //'catchAll' => ['admin/'],  //stub
 ];
 
 if (YII_ENV_DEV) {

@@ -40,6 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]);
                 }
             ],
+            [
+                'attribute' => 'tags',
+                'format' => 'html',
+                'value' => function ($data) {
+                    $html = '';
+                    foreach ($data->tags as $tag){
+                        $html .= '<p>' . $tag->name . '</p>';
+                    }
+                    return $html;
+                },
+            ],
             'date',
         ],
     ]) ?>

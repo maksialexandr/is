@@ -12,18 +12,18 @@ class m180327_100454_update_news_table extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('news', 'news_id', 'integer');
+        $this->addColumn('news', 'tag_id', 'integer');
 
         $this->createIndex(
-            'idx-tag-news_id',
+            'idx-news-tag_id',
             'news',
-            'news_id'
+            'tag_id'
         );
 
         $this->addForeignKey(
             'fk-news-tag_id',
             'news',
-            'news_id',
+            'tag_id',
             'tags',
             'id',
             'CASCADE'
@@ -35,11 +35,15 @@ class m180327_100454_update_news_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('news', 'tag_id');
+        $this->dropForeignKey('fk-news-tag_id', 'news');
+
         $this->dropIndex(
-            'idx-tag-news_id',
+            'idx-news-tag_id',
             'news'
         );
+
+        $this->dropColumn('news', 'tag_id');
+
     }
 
 }

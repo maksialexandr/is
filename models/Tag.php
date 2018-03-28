@@ -43,8 +43,9 @@ class Tag extends \yii\db\ActiveRecord
 
     public function getNews()
     {
-        return $this->hasMany(News::className(), ['id' => 'news_id'])
+        return $this->hasMany(News::class, ['id' => 'news_id'])
             ->viaTable('news_tag', ['tag_id' => 'id']);
     }
     
+
 }

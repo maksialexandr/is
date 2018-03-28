@@ -11,6 +11,7 @@ use kartik\date\DatePicker;
 
 <div class="news-form">
 
+
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -36,19 +37,9 @@ use kartik\date\DatePicker;
         ]
     ]);?>
 
-    <?= $form->field($model, 'tags[]')
-        ->dropDownList(
-            $model->getTagsDropdown(),
-            [
-                'multiple'=>'multiple',
-                'class'=>'chosen-select input-md required',
-            ],
-            ['options' =>
-                [
-                    2 => ['selected' => true]
-                ]
-            ]
-        )->label("Add TagsS");?>
+
+    <?= $form->field($model, 'tags')->listBox($model->getDataItems(),[
+        'maxlength' => 255, 'multiple' => true]) ?>
 
 
     <div class="form-group">

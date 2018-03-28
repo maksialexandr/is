@@ -9,6 +9,8 @@ use Yii;
 use app\models\News;
 use app\models\NewsSearch;
 use yii\db\Expression;
+use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -109,14 +111,13 @@ class NewsController extends DefaultController
         if (!$model->hasDate())
             $model->date = new Expression('NOW()');
 
-
-        if($model->save()) {
-            if (!empty($_POST['News']['tags']))
-                foreach ($_POST['News']['tags'] as $key => $value){
-                    $tag = Tag::findOne($value);
-                    if (isset($tag))
+        if($model->validate() && $model->save()) {
+            if ($tags = ArrayHelper::getValue(Yii::$app->request->post(), 'News.tags')) {
+                $model->unlinkAll('tags');
+                $tags = Tag::findAll($tags);
+                foreach ($tags as $tag)
                         $model->link('tags', $tag);
-                }
+            }
 
             return true;
         }
@@ -137,7 +138,7 @@ class NewsController extends DefaultController
 
         UploadImage::deleteOldImage($model->image);
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

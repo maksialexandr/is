@@ -18,6 +18,35 @@ class m180327_101423_create_news_tag_table extends Migration
             'tag_id'    => $this->integer(),
         ]);
 
+        $this->createIndex(
+            'idx-news_tag-tag_id',
+            'news_tag',
+            'tag_id'
+        );
+
+        $this->addForeignKey(
+            'fk-news_tag-tag_id',
+            'news_tag',
+            'tag_id',
+            'tags',
+            'id',
+            'CASCADE'
+        );
+
+        $this->createIndex(
+            'idx-news_tag-news_id',
+            'news_tag',
+            'news_id'
+        );
+
+        $this->addForeignKey(
+            'fk-news_tag-news_id',
+            'news_tag',
+            'news_id',
+            'news',
+            'id',
+            'CASCADE'
+        );
 
     }
 
@@ -26,6 +55,20 @@ class m180327_101423_create_news_tag_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey('fk-news_tag-tag_id', 'news_tag');
+
+        $this->dropIndex(
+            'idx-news_tag-tag_id',
+            'news_tag'
+        );
+
+        $this->dropForeignKey('fk-news_tag-news_id', 'news_id');
+
+        $this->dropIndex(
+            'idx-news_tag-news_id',
+            'news_tag'
+        );
+
         $this->dropTable('news_tag');
     }
 }

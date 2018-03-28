@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "news".
@@ -62,21 +63,14 @@ class News extends \yii\db\ActiveRecord
 
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+        return $this->hasMany(Tag::class, ['id' => 'tag_id'])
             ->viaTable('news_tag', ['news_id' => 'id']);
     }
+    
 
-    public function getTagsDropdown()
+    public function getDataItems()
     {
-        $tags = [];
-        foreach (Tag::find()->all() as $tag)
-            $tags[$tag->id] = $tag->name;
-
-        return $tags;
-    }
-
-    public function getListNameTags(){
-        //
+        return ArrayHelper::map(Tag::find()->all(), 'id', 'name');
     }
 
 
