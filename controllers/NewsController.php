@@ -1,5 +1,7 @@
 <?php
-
+/**
+*Контроллер для новостей
+*/
 namespace app\controllers;
 
 use Yii;
